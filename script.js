@@ -1,23 +1,27 @@
-function isPalindrome(str) {
-    str = str.replace(/\s/g, '').toLowerCase();
-    const reversedStr = str.split('').reverse().join('');
-    return str === reversedStr;
-}
+document.getElementById('userInfoForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent form submission
+    
+    // Get user inputs
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const zipCode = document.getElementById('zipCode').value.trim();
+    const secretMessage = document.getElementById('secretMessage');
 
-document.getElementById('checkButton').addEventListener('click', function () {
-    const userInput = document.getElementById('userInput').value;
-    const resultElement = document.getElementById('result');
+    // Combine first name and last name
+    const fullName = firstName + ' ' + lastName;
 
-    if (userInput.trim() === '') {
-        resultElement.textContent = 'Please enter a valid string.';
+    // Check if the full name has more than 20 characters
+    if (fullName.length > 20) {
+        alert('Full name is too long (more than 20 characters).');
         return;
     }
 
-    if (isPalindrome(userInput)) {
-        resultElement.textContent = `"${userInput}" is a palindrome!`;
-    } else {
-        resultElement.textContent = `"${userInput}" is not a palindrome.`;
+    // Check if the zip code contains exactly 5 digits
+    if (!/^\d{5}$/.test(zipCode)) {
+        alert('Invalid zip code (should contain exactly 5 digits).');
+        return;
     }
 
-    document.getElementById('userInput').value = '';
+    // If inputs are valid, display the secret message
+    secretMessage.style.display = 'block';
 });
